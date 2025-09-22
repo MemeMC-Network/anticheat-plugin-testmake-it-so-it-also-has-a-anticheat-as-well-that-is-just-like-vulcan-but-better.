@@ -59,6 +59,13 @@ public class CheckListener implements Listener {
         if (networkLatencyCheck != null && networkLatencyCheck.isEnabled()) {
             networkLatencyCheck.checkNetworkLatency(event);
         }
+        
+        // AI-powered pattern detection
+        network.mememc.memeac.checks.ai.SuspiciousPatternCheck suspiciousPatternCheck = 
+                (network.mememc.memeac.checks.ai.SuspiciousPatternCheck) antiCheatManager.getCheck(network.mememc.memeac.checks.ai.SuspiciousPatternCheck.class);
+        if (suspiciousPatternCheck != null && suspiciousPatternCheck.isEnabled()) {
+            suspiciousPatternCheck.checkSuspiciousPatterns(event);
+        }
     }
     
     @EventHandler(priority = EventPriority.LOWEST)

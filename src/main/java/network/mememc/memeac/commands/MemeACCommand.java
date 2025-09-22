@@ -149,13 +149,14 @@ public class MemeACCommand implements CommandExecutor, TabCompleter {
     private void showHelp(CommandSender sender) {
         sender.sendMessage(ChatColor.DARK_AQUA + "╔══════════════════════════════════════╗");
         sender.sendMessage(ChatColor.DARK_AQUA + "║" + ChatColor.BOLD + ChatColor.AQUA + "        MemeAC Command Help           " + ChatColor.DARK_AQUA + "║");
-        sender.sendMessage(ChatColor.DARK_AQUA + "║" + ChatColor.GRAY + "     The Best Anticheat Plugin      " + ChatColor.DARK_AQUA + "║");
+        sender.sendMessage(ChatColor.DARK_AQUA + "║" + ChatColor.GRAY + "  The Best Cross-Platform Anticheat  " + ChatColor.DARK_AQUA + "║");
         sender.sendMessage(ChatColor.DARK_AQUA + "╚══════════════════════════════════════╝");
         
         sender.sendMessage(ChatColor.YELLOW + "🛡 " + ChatColor.BOLD + "General Commands:");
         sender.sendMessage(ChatColor.YELLOW + "/memeac info" + ChatColor.GRAY + " - Show detailed plugin information");
         sender.sendMessage(ChatColor.YELLOW + "/memeac stats" + ChatColor.GRAY + " - Show anticheat statistics");
         sender.sendMessage(ChatColor.YELLOW + "/memeac reload" + ChatColor.GRAY + " - Reload plugin configuration");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac geyser" + ChatColor.GRAY + " - Show cross-platform status");
         
         sender.sendMessage(ChatColor.AQUA + "⚙ " + ChatColor.BOLD + "Check Management:");
         sender.sendMessage(ChatColor.YELLOW + "/memeac checks" + ChatColor.GRAY + " - List all anticheat checks");
@@ -164,17 +165,32 @@ public class MemeACCommand implements CommandExecutor, TabCompleter {
         
         sender.sendMessage(ChatColor.GREEN + "👤 " + ChatColor.BOLD + "Player Management:");
         sender.sendMessage(ChatColor.YELLOW + "/memeac player <name>" + ChatColor.GRAY + " - Show player violation data");
-        sender.sendMessage(ChatColor.YELLOW + "/memeac player <name> reset" + ChatColor.GRAY + " - Reset player violations");
-        sender.sendMessage(ChatColor.YELLOW + "/memeac exempt <player> <add/remove>" + ChatColor.GRAY + " - Manage exemptions");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac debug <player>" + ChatColor.GRAY + " - Real-time player debugging");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac analyze <player>" + ChatColor.GRAY + " - Deep behavioral analysis");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac ban <player>" + ChatColor.GRAY + " - Generate ban recommendation");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac export <player>" + ChatColor.GRAY + " - Export violation evidence");
         
-        sender.sendMessage(ChatColor.LIGHT_PURPLE + "🤖 " + ChatColor.BOLD + "AI Features:");
+        sender.sendMessage(ChatColor.GOLD + "🔧 " + ChatColor.BOLD + "Administrative:");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac whitelist <player> <add/remove/time>" + ChatColor.GRAY + " - Temporary exemptions");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac config <setting> <value>" + ChatColor.GRAY + " - Runtime configuration");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac exempt <player> <add/remove>" + ChatColor.GRAY + " - Permanent exemptions");
+        
+        sender.sendMessage(ChatColor.LIGHT_PURPLE + "🤖 " + ChatColor.BOLD + "AI & Analytics:");
         sender.sendMessage(ChatColor.YELLOW + "/memeac ai" + ChatColor.GRAY + " - Show AI analysis information");
         sender.sendMessage(ChatColor.YELLOW + "/memeac ai <player>" + ChatColor.GRAY + " - Show player behavior analysis");
+        sender.sendMessage(ChatColor.YELLOW + "/memeac violations [player]" + ChatColor.GRAY + " - Show recent violations");
         
         sender.sendMessage(ChatColor.RED + "📊 " + ChatColor.BOLD + "Monitoring:");
         sender.sendMessage(ChatColor.YELLOW + "/memeac alerts" + ChatColor.GRAY + " - Toggle violation alerts");
-        sender.sendMessage(ChatColor.YELLOW + "/memeac violations [player]" + ChatColor.GRAY + " - Show recent violations");
         sender.sendMessage(ChatColor.YELLOW + "/memeac profile [strict/balanced/lenient]" + ChatColor.GRAY + " - Set detection profile");
+        
+        sender.sendMessage("");
+        sender.sendMessage(ChatColor.GREEN + "✨ " + ChatColor.BOLD + "New Features:");
+        sender.sendMessage(ChatColor.GRAY + "• Full Bedrock Edition compatibility via Geyser");
+        sender.sendMessage(ChatColor.GRAY + "• Advanced ML-inspired behavioral analysis");
+        sender.sendMessage(ChatColor.GRAY + "• Cross-platform detection algorithms");
+        sender.sendMessage(ChatColor.GRAY + "• Network latency pattern analysis");
+        sender.sendMessage(ChatColor.GRAY + "• Suspicious automation detection");
     }
     
     private void showInfo(CommandSender sender) {

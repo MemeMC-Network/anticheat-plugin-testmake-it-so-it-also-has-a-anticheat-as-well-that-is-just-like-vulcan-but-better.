@@ -673,4 +673,82 @@ public class PlayerData {
     public int getRegularTimingViolations() {
         return regularTimingViolations;
     }
+    
+    // Suspicious Pattern Check data
+    private final java.util.List<network.mememc.memeac.checks.ai.SuspiciousPatternCheck.MovementSignature> movementSignatures = new ArrayList<>();
+    private final java.util.List<Long> timingSignatures = new ArrayList<>();
+    private final java.util.List<network.mememc.memeac.checks.ai.SuspiciousPatternCheck.RotationSignature> rotationSignatures = new ArrayList<>();
+    private int patternViolations = 0;
+    private int timingViolations = 0;
+    private int rotationViolations = 0;
+    private int aimAssistViolations = 0;
+    
+    public void addMovementSignature(network.mememc.memeac.checks.ai.SuspiciousPatternCheck.MovementSignature signature) {
+        movementSignatures.add(signature);
+        if (movementSignatures.size() > 100) {
+            movementSignatures.remove(0);
+        }
+    }
+    
+    public java.util.List<network.mememc.memeac.checks.ai.SuspiciousPatternCheck.MovementSignature> getMovementSignatures() {
+        return new ArrayList<>(movementSignatures);
+    }
+    
+    public void addTimingSignature(long timing) {
+        timingSignatures.add(timing);
+        if (timingSignatures.size() > 100) {
+            timingSignatures.remove(0);
+        }
+    }
+    
+    public java.util.List<Long> getTimingSignatures() {
+        return new ArrayList<>(timingSignatures);
+    }
+    
+    public void addRotationSignature(float yaw, float pitch) {
+        rotationSignatures.add(new network.mememc.memeac.checks.ai.SuspiciousPatternCheck.RotationSignature(yaw, pitch, System.currentTimeMillis()));
+        if (rotationSignatures.size() > 50) {
+            rotationSignatures.remove(0);
+        }
+    }
+    
+    public java.util.List<network.mememc.memeac.checks.ai.SuspiciousPatternCheck.RotationSignature> getRotationSignatures() {
+        return new ArrayList<>(rotationSignatures);
+    }
+    
+    public void incrementPatternViolations() {
+        patternViolations = Math.min(patternViolations + 1, 10);
+    }
+    
+    public void decrementPatternViolations() {
+        patternViolations = Math.max(patternViolations - 1, 0);
+    }
+    
+    public int getPatternViolations() {
+        return patternViolations;
+    }
+    
+    public void incrementTimingViolations() {
+        timingViolations = Math.min(timingViolations + 1, 15);
+    }
+    
+    public int getTimingViolations() {
+        return timingViolations;
+    }
+    
+    public void incrementRotationViolations() {
+        rotationViolations = Math.min(rotationViolations + 1, 12);
+    }
+    
+    public int getRotationViolations() {
+        return rotationViolations;
+    }
+    
+    public void incrementAimAssistViolations() {
+        aimAssistViolations = Math.min(aimAssistViolations + 1, 8);
+    }
+    
+    public int getAimAssistViolations() {
+        return aimAssistViolations;
+    }
 }

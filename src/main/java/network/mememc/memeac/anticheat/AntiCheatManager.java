@@ -87,6 +87,9 @@ public class AntiCheatManager {
         // AI-powered behavioral analysis - Machine learning inspired
         checks.add(new AIBehaviorCheck(plugin));
         
+        // Advanced suspicious pattern detection
+        checks.add(new network.mememc.memeac.checks.ai.SuspiciousPatternCheck(plugin));
+        
         // NEW GEYSER COMPATIBILITY AND ADVANCED CHECKS
         
         // Advanced movement analysis with ML patterns
