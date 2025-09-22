@@ -87,11 +87,23 @@ public class AntiCheatManager {
         // AI-powered behavioral analysis - Machine learning inspired
         checks.add(new AIBehaviorCheck(plugin));
         
+        // NEW GEYSER COMPATIBILITY AND ADVANCED CHECKS
+        
+        // Advanced movement analysis with ML patterns
+        checks.add(new AdvancedMovementCheck(plugin));
+        
+        // Cross-platform detection and handling
+        checks.add(new CrossPlatformCheck(plugin));
+        
+        // Network latency analysis
+        checks.add(new NetworkLatencyCheck(plugin));
+        
         plugin.getACLogger().info("Advanced Detection Systems:");
         plugin.getACLogger().info("- " + getChecksByType(Check.CheckType.MOVEMENT).size() + " Movement checks");
         plugin.getACLogger().info("- " + getChecksByType(Check.CheckType.COMBAT).size() + " Combat checks");
         plugin.getACLogger().info("- " + getChecksByType(Check.CheckType.WORLD).size() + " World checks");
         plugin.getACLogger().info("- " + getChecksByType(Check.CheckType.PACKET).size() + " Packet/AI checks");
+        plugin.getACLogger().info("- " + getChecksByType(Check.CheckType.NETWORK).size() + " Network/Cross-Platform checks");
         plugin.getACLogger().info("Total: " + checks.size() + " advanced detection algorithms active");
     }
     

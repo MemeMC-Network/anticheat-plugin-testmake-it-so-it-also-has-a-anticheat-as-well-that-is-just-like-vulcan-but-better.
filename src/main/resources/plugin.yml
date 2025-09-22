@@ -4,13 +4,14 @@ main: network.mememc.memeac.MemeAC
 api-version: 1.16
 prefix: MemeAC
 authors: [MemeMC]
-description: Advanced anticheat plugin with 99%+ accuracy detection
+description: Advanced anticheat plugin with 99%+ accuracy detection and Geyser compatibility
 website: https://mememc.network
+softdepend: [Geyser-Spigot]
 
 commands:
   memeac:
     description: Main MemeAC command
-    usage: /<command> [reload|info|alerts|check]
+    usage: /<command> [info|checks|player|alerts|reload|ai|stats|profile|violations|exempt|debug|whitelist|ban|analyze|config|export|geyser]
     permission: memeac.admin
     aliases: [mac, anticheat]
 

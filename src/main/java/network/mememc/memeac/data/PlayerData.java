@@ -543,4 +543,134 @@ public class PlayerData {
     public int getTerrainViewing() {
         return terrainViewing;
     }
+    
+    // Advanced Movement Check data
+    private final List<Double> movementSamples = new ArrayList<>();
+    private int accelerationViolations = 0;
+    private double averageMovementPrecision = 0;
+    
+    public void addMovementSample(double distance) {
+        movementSamples.add(distance);
+        if (movementSamples.size() > 50) {
+            movementSamples.remove(0);
+        }
+    }
+    
+    public List<Double> getMovementSamples() {
+        return new ArrayList<>(movementSamples);
+    }
+    
+    public void incrementAccelerationViolations() {
+        accelerationViolations = Math.min(accelerationViolations + 1, 10);
+    }
+    
+    public void decrementAccelerationViolations() {
+        accelerationViolations = Math.max(accelerationViolations - 1, 0);
+    }
+    
+    public int getAccelerationViolations() {
+        return accelerationViolations;
+    }
+    
+    public double getAverageMovementPrecision() {
+        return averageMovementPrecision;
+    }
+    
+    public void updateAverageMovementPrecision(double newPrecision) {
+        this.averageMovementPrecision = (averageMovementPrecision * 0.9) + (newPrecision * 0.1);
+    }
+    
+    // Cross-Platform Check data
+    private final List<Double> crossPlatformSamples = new ArrayList<>();
+    private int bedrockSprintViolations = 0;
+    private int precisionViolations = 0;
+    private int invalidJavaMovement = 0;
+    
+    public void addCrossPlatformSample(double distance) {
+        crossPlatformSamples.add(distance);
+        if (crossPlatformSamples.size() > 30) {
+            crossPlatformSamples.remove(0);
+        }
+    }
+    
+    public List<Double> getCrossPlatformSamples() {
+        return new ArrayList<>(crossPlatformSamples);
+    }
+    
+    public void incrementBedrockSprintViolations() {
+        bedrockSprintViolations = Math.min(bedrockSprintViolations + 1, 10);
+    }
+    
+    public int getBedrockSprintViolations() {
+        return bedrockSprintViolations;
+    }
+    
+    public void incrementPrecisionViolations() {
+        precisionViolations = Math.min(precisionViolations + 1, 15);
+    }
+    
+    public int getPrecisionViolations() {
+        return precisionViolations;
+    }
+    
+    public void incrementInvalidJavaMovement() {
+        invalidJavaMovement = Math.min(invalidJavaMovement + 1, 8);
+    }
+    
+    public int getInvalidJavaMovement() {
+        return invalidJavaMovement;
+    }
+    
+    // Network Latency Check data
+    private final List<Integer> pingSamples = new ArrayList<>();
+    private final List<Long> packetTimingSamples = new ArrayList<>();
+    private long lastPacketTime = 0;
+    private int lagSwitchViolations = 0;
+    private int regularTimingViolations = 0;
+    
+    public void addPingSample(int ping) {
+        pingSamples.add(ping);
+        if (pingSamples.size() > 20) {
+            pingSamples.remove(0);
+        }
+    }
+    
+    public List<Integer> getPingSamples() {
+        return new ArrayList<>(pingSamples);
+    }
+    
+    public void addPacketTimingSample(long timing) {
+        packetTimingSamples.add(timing);
+        if (packetTimingSamples.size() > 30) {
+            packetTimingSamples.remove(0);
+        }
+    }
+    
+    public List<Long> getPacketTimingSamples() {
+        return new ArrayList<>(packetTimingSamples);
+    }
+    
+    public void setLastPacketTime(long time) {
+        this.lastPacketTime = time;
+    }
+    
+    public long getLastPacketTime() {
+        return lastPacketTime;
+    }
+    
+    public void incrementLagSwitchViolations() {
+        lagSwitchViolations = Math.min(lagSwitchViolations + 1, 8);
+    }
+    
+    public int getLagSwitchViolations() {
+        return lagSwitchViolations;
+    }
+    
+    public void incrementRegularTimingViolations() {
+        regularTimingViolations = Math.min(regularTimingViolations + 1, 20);
+    }
+    
+    public int getRegularTimingViolations() {
+        return regularTimingViolations;
+    }
 }
