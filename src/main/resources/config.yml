@@ -1,0 +1,93 @@
+# MemeAC Configuration
+# Advanced Anticheat Plugin by MemeMC Network
+
+# Check Configuration
+checks:
+  movement:
+    flight:
+      enabled: true
+      max-violations: 10
+    speed:
+      enabled: true
+      max-violations: 8
+    nofall:
+      enabled: true
+      max-violations: 8
+    jesus:
+      enabled: true
+      max-violations: 8
+    phase:
+      enabled: true
+      max-violations: 6
+    step:
+      enabled: true
+      max-violations: 7
+    glide:
+      enabled: true
+      max-violations: 9
+    bhop:
+      enabled: true
+      max-violations: 8
+  
+  combat:
+    killaura:
+      enabled: true
+      max-violations: 6
+    reach:
+      enabled: true
+      max-violations: 5
+    autoclicker:
+      enabled: true
+      max-violations: 7
+    velocity:
+      enabled: true
+      max-violations: 8
+    criticals:
+      enabled: true
+      max-violations: 6
+    aimassist:
+      enabled: true
+      max-violations: 9
+    hitbox:
+      enabled: true
+      max-violations: 5
+  
+  world:
+    fastbreak:
+      enabled: true
+      max-violations: 7
+    fastplace:
+      enabled: true
+      max-violations: 8
+    scaffold:
+      enabled: true
+      max-violations: 6
+    tower:
+      enabled: true
+      max-violations: 7
+    nuker:
+      enabled: true
+      max-violations: 5
+    inventory:
+      enabled: true
+      max-violations: 8
+
+# Punishment Configuration
+punishments:
+  kick-on-high-certainty: true
+  high-certainty-threshold: 98
+  max-violations-before-kick: 10
+  kick-message: "MemeAC\n\nDetected use of prohibited modifications\n\nIf you believe this was a mistake, please contact staff"
+
+# Alert Configuration
+alerts:
+  broadcast-to-staff: true
+  log-to-console: true
+  minimum-certainty: 85
+  format: "&c[MemeAC] &e{player} &7failed &b{check} &7(&a{certainty}%&7)"
+
+# General Settings
+general:
+  check-interval: 1
+  data-cleanup-interval: 300
+  debug-mode: false

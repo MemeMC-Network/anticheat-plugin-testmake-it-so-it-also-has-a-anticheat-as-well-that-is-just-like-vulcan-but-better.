@@ -1,0 +1,32 @@
+name: MemeAC
+version: '${project.version}'
+main: network.mememc.memeac.MemeAC
+api-version: 1.16
+prefix: MemeAC
+authors: [MemeMC]
+description: Advanced anticheat plugin with 99%+ accuracy detection
+website: https://mememc.network
+
+commands:
+  memeac:
+    description: Main MemeAC command
+    usage: /<command> [reload|info|alerts|check]
+    permission: memeac.admin
+    aliases: [mac, anticheat]
+
+permissions:
+  memeac.*:
+    description: Gives access to all MemeAC permissions
+    children:
+      memeac.admin: true
+      memeac.alerts: true
+      memeac.bypass: true
+  memeac.admin:
+    description: Allows access to admin commands
+    default: op
+  memeac.alerts:
+    description: Allows receiving violation alerts
+    default: op
+  memeac.bypass:
+    description: Bypasses all anticheat checks
+    default: false
