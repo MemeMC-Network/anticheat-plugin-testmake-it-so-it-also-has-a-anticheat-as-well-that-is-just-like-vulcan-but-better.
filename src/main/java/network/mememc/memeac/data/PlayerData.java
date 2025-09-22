@@ -1,5 +1,6 @@
 package network.mememc.memeac.data;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
@@ -20,7 +21,6 @@ public class PlayerData {
     private int speedViolations = 0;
     
     // Combat data
-    private final Queue<Long> attackTimes = new LinkedList<>();
     private Vector lastLookDirection;
     private Entity lastTarget;
     private long lastAttackTime = 0;
@@ -32,6 +32,53 @@ public class PlayerData {
     // Violation tracking
     private int totalViolations = 0;
     private long lastViolationTime = 0;
+    
+    // Advanced tracking for new checks
+    // Timer check data
+    private long lastMoveTime = 0;
+    private final List<Double> timerSamples = new ArrayList<>();
+    private int timerViolations = 0;
+    
+    // Invalid packet data
+    private int duplicatePackets = 0;
+    private int rapidRotations = 0;
+    private Float lastYaw = null;
+    private Float lastPitch = null;
+    
+    // Elytra exploit data
+    private int elytraViolations = 0;
+    private Boolean lastGlidingState = null;
+    private final List<Double> speedSamples = new ArrayList<>();
+    
+    // XRay detection data
+    private int oresMined = 0;
+    private int blocksBroken = 0;
+    private int hiddenOres = 0;
+    private int directOreFinds = 0;
+    private int recentOres = 0;
+    private long lastOreMineTime = 0;
+    private Location lastOreLocation = null;
+    private final List<Location> recentBreakLocations = new ArrayList<>();
+    
+    // AI behavior analysis data
+    private double movementPrecision = 0;
+    private double hitAccuracy = 0;
+    private int totalAttacks = 0;
+    private int successfulHits = 0;
+    private long totalReactionTime = 0;
+    private int reactionTimeCount = 0;
+    private double averageMiningSpeed = 0;
+    private final Queue<Long> attackTimes = new LinkedList<>();
+    
+    // Network analysis data
+    private final List<Integer> pingSamples = new ArrayList<>();
+    private int pingSpoofViolations = 0;
+    private int suspiciousPingDrops = 0;
+    
+    // FreeCam detection data
+    private int freeCamViolations = 0;
+    private int suspiciousViewing = 0;
+    private int terrainViewing = 0;
     
     public PlayerData(String playerName) {
         this.playerName = playerName;
@@ -200,5 +247,300 @@ public class PlayerData {
     public void resetCombatData() {
         suspiciousRotations = 0;
         multiTargetHits = 0;
+    }
+    
+    // Timer check methods
+    public void setLastMoveTime(long time) {
+        this.lastMoveTime = time;
+    }
+    
+    public long getLastMoveTime() {
+        return lastMoveTime;
+    }
+    
+    public void addTimerSample(double ratio) {
+        timerSamples.add(ratio);
+        if (timerSamples.size() > 20) {
+            timerSamples.remove(0);
+        }
+    }
+    
+    public List<Double> getTimerSamples() {
+        return new ArrayList<>(timerSamples);
+    }
+    
+    public double getAverageTimerRatio() {
+        if (timerSamples.isEmpty()) return 1.0;
+        return timerSamples.stream().mapToDouble(Double::doubleValue).average().orElse(1.0);
+    }
+    
+    public void incrementTimerViolations() {
+        timerViolations = Math.min(timerViolations + 1, 10);
+    }
+    
+    public void decrementTimerViolations() {
+        timerViolations = Math.max(timerViolations - 1, 0);
+    }
+    
+    public int getTimerViolations() {
+        return timerViolations;
+    }
+    
+    // Invalid packet methods
+    public void incrementDuplicatePackets() {
+        duplicatePackets++;
+    }
+    
+    public void resetDuplicatePackets() {
+        duplicatePackets = 0;
+    }
+    
+    public int getDuplicatePackets() {
+        return duplicatePackets;
+    }
+    
+    public void incrementRapidRotations() {
+        rapidRotations = Math.min(rapidRotations + 1, 10);
+    }
+    
+    public void decrementRapidRotations() {
+        rapidRotations = Math.max(rapidRotations - 1, 0);
+    }
+    
+    public int getRapidRotations() {
+        return rapidRotations;
+    }
+    
+    public void setLastYaw(float yaw) {
+        this.lastYaw = yaw;
+    }
+    
+    public Float getLastYaw() {
+        return lastYaw;
+    }
+    
+    public void setLastPitch(float pitch) {
+        this.lastPitch = pitch;
+    }
+    
+    public Float getLastPitch() {
+        return lastPitch;
+    }
+    
+    // Elytra exploit methods
+    public void incrementElytraViolations() {
+        elytraViolations = Math.min(elytraViolations + 1, 10);
+    }
+    
+    public void resetElytraViolations() {
+        elytraViolations = 0;
+    }
+    
+    public int getElytraViolations() {
+        return elytraViolations;
+    }
+    
+    public void setLastGlidingState(boolean gliding) {
+        this.lastGlidingState = gliding;
+    }
+    
+    public Boolean getLastGlidingState() {
+        return lastGlidingState;
+    }
+    
+    public void addSpeedSample(double speed) {
+        speedSamples.add(speed);
+        if (speedSamples.size() > 30) {
+            speedSamples.remove(0);
+        }
+    }
+    
+    public List<Double> getSpeedSamples() {
+        return new ArrayList<>(speedSamples);
+    }
+    
+    public double getAverageSpeed() {
+        if (speedSamples.isEmpty()) return 0;
+        return speedSamples.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+    }
+    
+    // XRay detection methods
+    public void incrementOresMined() {
+        oresMined++;
+    }
+    
+    public int getOresMined() {
+        return oresMined;
+    }
+    
+    public void incrementBlocksBroken() {
+        blocksBroken++;
+    }
+    
+    public int getBlocksBroken() {
+        return blocksBroken;
+    }
+    
+    public void incrementHiddenOres() {
+        hiddenOres = Math.min(hiddenOres + 1, 20);
+    }
+    
+    public int getHiddenOres() {
+        return hiddenOres;
+    }
+    
+    public void incrementDirectOreFinds() {
+        directOreFinds = Math.min(directOreFinds + 1, 10);
+    }
+    
+    public int getDirectOreFinds() {
+        return directOreFinds;
+    }
+    
+    public void incrementRecentOres() {
+        recentOres++;
+    }
+    
+    public void resetRecentOres() {
+        recentOres = 0;
+    }
+    
+    public int getRecentOres() {
+        return recentOres;
+    }
+    
+    public void setLastOreMineTime(long time) {
+        this.lastOreMineTime = time;
+    }
+    
+    public long getLastOreMineTime() {
+        return lastOreMineTime;
+    }
+    
+    public void setLastOreLocation(Location location) {
+        this.lastOreLocation = location;
+    }
+    
+    public Location getLastOreLocation() {
+        return lastOreLocation;
+    }
+    
+    public void addRecentBreakLocation(Location location) {
+        recentBreakLocations.add(location);
+        if (recentBreakLocations.size() > 50) {
+            recentBreakLocations.remove(0);
+        }
+    }
+    
+    public List<Location> getRecentBreakLocations() {
+        return new ArrayList<>(recentBreakLocations);
+    }
+    
+    // AI behavior analysis methods
+    public void updateMovementPrecision(double precision) {
+        this.movementPrecision = precision;
+    }
+    
+    public double getMovementPrecision() {
+        return movementPrecision;
+    }
+    
+    public void recordHit(boolean successful) {
+        totalAttacks++;
+        if (successful) {
+            successfulHits++;
+        }
+        hitAccuracy = (double) successfulHits / totalAttacks * 100;
+    }
+    
+    public double getHitAccuracy() {
+        return hitAccuracy;
+    }
+    
+    public int getTotalAttacks() {
+        return totalAttacks;
+    }
+    
+    public void addReactionTime(long reactionTime) {
+        totalReactionTime += reactionTime;
+        reactionTimeCount++;
+    }
+    
+    public double getAverageReactionTime() {
+        if (reactionTimeCount == 0) return 0;
+        return (double) totalReactionTime / reactionTimeCount;
+    }
+    
+    public void updateAverageMiningSpeed(double speed) {
+        this.averageMiningSpeed = speed;
+    }
+    
+    public double getAverageMiningSpeed() {
+        return averageMiningSpeed;
+    }
+    
+    public Queue<Long> getAttackTimes() {
+        return new LinkedList<>(attackTimes);
+    }
+    
+    // Network analysis methods
+    public void addPingSample(int ping) {
+        pingSamples.add(ping);
+        if (pingSamples.size() > 30) {
+            pingSamples.remove(0);
+        }
+    }
+    
+    public List<Integer> getPingSamples() {
+        return new ArrayList<>(pingSamples);
+    }
+    
+    public void incrementPingSpoofViolations() {
+        pingSpoofViolations = Math.min(pingSpoofViolations + 1, 10);
+    }
+    
+    public void decrementPingSpoofViolations() {
+        pingSpoofViolations = Math.max(pingSpoofViolations - 1, 0);
+    }
+    
+    public int getPingSpoofViolations() {
+        return pingSpoofViolations;
+    }
+    
+    public void incrementSuspiciousPingDrops() {
+        suspiciousPingDrops = Math.min(suspiciousPingDrops + 1, 10);
+    }
+    
+    public int getSuspiciousPingDrops() {
+        return suspiciousPingDrops;
+    }
+    
+    // FreeCam detection methods
+    public void incrementFreeCamViolations() {
+        freeCamViolations = Math.min(freeCamViolations + 1, 10);
+    }
+    
+    public void decrementFreeCamViolations() {
+        freeCamViolations = Math.max(freeCamViolations - 1, 0);
+    }
+    
+    public int getFreeCamViolations() {
+        return freeCamViolations;
+    }
+    
+    public void incrementSuspiciousViewing() {
+        suspiciousViewing = Math.min(suspiciousViewing + 1, 15);
+    }
+    
+    public int getSuspiciousViewing() {
+        return suspiciousViewing;
+    }
+    
+    public void incrementTerrainViewing() {
+        terrainViewing = Math.min(terrainViewing + 1, 20);
+    }
+    
+    public int getTerrainViewing() {
+        return terrainViewing;
     }
 }
