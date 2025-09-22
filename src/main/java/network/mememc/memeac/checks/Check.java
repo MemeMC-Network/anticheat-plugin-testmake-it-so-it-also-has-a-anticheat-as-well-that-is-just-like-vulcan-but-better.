@@ -64,7 +64,8 @@ public abstract class Check {
         MOVEMENT("Movement"),
         COMBAT("Combat"),
         WORLD("World"),
-        PACKET("Packet");
+        PACKET("Packet"),
+        NETWORK("Network");
         
         private final String displayName;
         

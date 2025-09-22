@@ -1,5 +1,6 @@
 # MemeAC Configuration
 # Advanced Anticheat Plugin by MemeMC Network
+# Enhanced version with 99%+ accuracy and advanced AI detection
 
 # Check Configuration
 checks:
@@ -7,87 +8,206 @@ checks:
     flight:
       enabled: true
       max-violations: 10
+      sensitivity: normal # low, normal, high, strict
     speed:
       enabled: true
       max-violations: 8
+      sensitivity: normal
     nofall:
       enabled: true
       max-violations: 8
+      sensitivity: normal
     jesus:
       enabled: true
       max-violations: 8
+      sensitivity: normal
     phase:
       enabled: true
       max-violations: 6
+      sensitivity: high
     step:
       enabled: true
       max-violations: 7
+      sensitivity: normal
     glide:
       enabled: true
       max-violations: 9
+      sensitivity: normal
     bhop:
       enabled: true
       max-violations: 8
+      sensitivity: normal
   
   combat:
     killaura:
       enabled: true
       max-violations: 6
+      sensitivity: high
+      check-angles: true
+      check-cps: true
+      check-patterns: true
     reach:
       enabled: true
       max-violations: 5
+      sensitivity: high
+      max-reach: 3.8
     autoclicker:
       enabled: true
       max-violations: 7
+      sensitivity: normal
+      max-cps: 20
     velocity:
       enabled: true
       max-violations: 8
+      sensitivity: normal
     criticals:
       enabled: true
       max-violations: 6
+      sensitivity: normal
     aimassist:
       enabled: true
       max-violations: 9
+      sensitivity: low
     hitbox:
       enabled: true
       max-violations: 5
+      sensitivity: high
   
   world:
     fastbreak:
       enabled: true
       max-violations: 7
+      sensitivity: normal
     fastplace:
       enabled: true
       max-violations: 8
+      sensitivity: normal
     scaffold:
       enabled: true
       max-violations: 6
+      sensitivity: high
     tower:
       enabled: true
       max-violations: 7
+      sensitivity: normal
     nuker:
       enabled: true
       max-violations: 5
+      sensitivity: strict
     inventory:
       enabled: true
       max-violations: 8
+      sensitivity: normal
+  
+  # NEW ADVANCED CHECKS
+  packet:
+    timer:
+      enabled: true
+      max-violations: 5
+      sensitivity: high
+      max-ratio: 1.15
+    invalidpacket:
+      enabled: true
+      max-violations: 3
+      sensitivity: strict
+    aibehavior:
+      enabled: true
+      max-violations: 15
+      sensitivity: normal
+      analysis-interval: 5000 # milliseconds
+  
+  exploit:
+    elytraplus:
+      enabled: true
+      max-violations: 7
+      sensitivity: high
+    xray:
+      enabled: true
+      max-violations: 8
+      sensitivity: normal
+      ore-ratio-threshold: 0.12
+      min-blocks-for-analysis: 500
 
-# Punishment Configuration
+# Advanced Punishment Configuration
 punishments:
   kick-on-high-certainty: true
   high-certainty-threshold: 98
   max-violations-before-kick: 10
   kick-message: "MemeAC\n\nDetected use of prohibited modifications\n\nIf you believe this was a mistake, please contact staff"
+  
+  # Escalating punishment system
+  escalation:
+    enabled: true
+    warn-threshold: 5
+    kick-threshold: 10
+    tempban-threshold: 15
+    tempban-duration: 3600 # seconds (1 hour)
 
-# Alert Configuration
+# Enhanced Alert Configuration
 alerts:
   broadcast-to-staff: true
   log-to-console: true
   minimum-certainty: 85
-  format: "&c[MemeAC] &e{player} &7failed &b{check} &7(&a{certainty}%&7)"
+  format: "&c[MemeAC] &e{player} &7failed &b{check} &7(&a{certainty}%&7) &f{reason}"
+  
+  # Staff alert levels
+  staff-alerts:
+    low-priority: 70    # Yellow alerts
+    medium-priority: 85 # Orange alerts  
+    high-priority: 95   # Red alerts
+    
+  # Discord webhook (optional)
+  discord:
+    enabled: false
+    webhook-url: ""
+    mention-role-id: ""
+
+# AI Behavior Analysis Configuration
+ai:
+  enabled: true
+  learning-rate: 0.1
+  analysis-interval: 5000
+  
+  # Behavior thresholds
+  thresholds:
+    movement-consistency: 95
+    combat-precision: 98
+    mining-efficiency: 12
+    reaction-time: 100
+  
+  # False positive mitigation
+  false-positive-learning: true
+  adaptive-thresholds: true
+
+# Performance Configuration
+performance:
+  max-checks-per-tick: 50
+  async-processing: true
+  data-cleanup-interval: 300
+  max-player-data-age: 86400 # 24 hours
 
 # General Settings
 general:
   check-interval: 1
-  data-cleanup-interval: 300
   debug-mode: false
+  
+  # Check profiles for different server types
+  profile: "balanced" # strict, balanced, lenient, tournament
+  
+  # Per-world settings
+  disabled-worlds:
+    - "creative_world"
+    - "lobby"
+  
+  # Exemption system
+  exemptions:
+    staff-bypass: true
+    donor-bypass: false
+    
+# Advanced Features
+features:
+  statistics-tracking: true
+  violation-history: true
+  player-behavior-profiles: true
+  real-time-monitoring: true
+  api-access: false

@@ -4,6 +4,7 @@ import network.mememc.memeac.analytics.StatisticsManager;
 import network.mememc.memeac.anticheat.AntiCheatManager;
 import network.mememc.memeac.commands.MemeACCommand;
 import network.mememc.memeac.config.ConfigManager;
+import network.mememc.memeac.geyser.GeyserCompatibility;
 import network.mememc.memeac.listeners.PlayerDataListener;
 import network.mememc.memeac.logging.AdvancedLogger;
 import network.mememc.memeac.managers.PlayerDataManager;
@@ -23,6 +24,7 @@ public final class MemeAC extends JavaPlugin {
     private StatisticsManager statisticsManager;
     private AdvancedLogger advancedLogger;
     private Logger logger;
+    private GeyserCompatibility geyserCompatibility;
 
     @Override
     public void onEnable() {
@@ -37,6 +39,10 @@ public final class MemeAC extends JavaPlugin {
         configManager = new ConfigManager(this);
         playerDataManager = new PlayerDataManager();
         violationManager = new ViolationManager(this);
+        
+        // Initialize Geyser compatibility first
+        geyserCompatibility = new GeyserCompatibility(this);
+        
         antiCheatManager = new AntiCheatManager(this);
         
         // Initialize advanced systems
@@ -57,6 +63,7 @@ public final class MemeAC extends JavaPlugin {
         logger.info("🛡️  Advanced anticheat protection with 99%+ accuracy is now active!");
         logger.info("🤖 AI behavioral analysis system initialized");
         logger.info("📊 Statistics and analytics system ready");
+        logger.info("🎮 Cross-platform support: " + (geyserCompatibility.isGeyserEnabled() ? "ENABLED" : "JAVA ONLY"));
         logger.info("⚡ " + antiCheatManager.getTotalChecks() + " detection algorithms loaded and active");
         
         // Display feature summary
@@ -139,6 +146,8 @@ public final class MemeAC extends JavaPlugin {
         logger.info("   ✅ AI Behavioral Analysis");
         logger.info("   ✅ Advanced Packet Inspection");
         logger.info("   ✅ Exploit Detection System");
+        logger.info("   ✅ Cross-Platform Compatibility");
+        logger.info("   ✅ Bedrock Edition Support");
         logger.info("   ✅ Real-time Statistics");
         logger.info("   ✅ Professional Logging");
         logger.info("   ✅ Comprehensive Management");
@@ -186,5 +195,9 @@ public final class MemeAC extends JavaPlugin {
     
     public Logger getACLogger() {
         return logger;
+    }
+    
+    public GeyserCompatibility getGeyserCompatibility() {
+        return geyserCompatibility;
     }
 }
