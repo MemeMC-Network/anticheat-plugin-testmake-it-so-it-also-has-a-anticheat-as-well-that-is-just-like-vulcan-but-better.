@@ -6,6 +6,7 @@ import network.mememc.memeac.checks.ai.*;
 import network.mememc.memeac.checks.combat.*;
 import network.mememc.memeac.checks.exploit.*;
 import network.mememc.memeac.checks.movement.*;
+import network.mememc.memeac.checks.network.*;
 import network.mememc.memeac.checks.packet.*;
 import network.mememc.memeac.checks.world.*;
 import network.mememc.memeac.listeners.CheckListener;
@@ -78,6 +79,10 @@ public class AntiCheatManager {
         // Exploit detection - Latest exploit prevention
         checks.add(new ElytraPlusCheck(plugin));
         checks.add(new XRayCheck(plugin));
+        checks.add(new FreeCamCheck(plugin));
+        
+        // Network analysis - Advanced connection monitoring
+        checks.add(new PingSpoofCheck(plugin));
         
         // AI-powered behavioral analysis - Machine learning inspired
         checks.add(new AIBehaviorCheck(plugin));

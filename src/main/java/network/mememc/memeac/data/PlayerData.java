@@ -70,6 +70,16 @@ public class PlayerData {
     private double averageMiningSpeed = 0;
     private final Queue<Long> attackTimes = new LinkedList<>();
     
+    // Network analysis data
+    private final List<Integer> pingSamples = new ArrayList<>();
+    private int pingSpoofViolations = 0;
+    private int suspiciousPingDrops = 0;
+    
+    // FreeCam detection data
+    private int freeCamViolations = 0;
+    private int suspiciousViewing = 0;
+    private int terrainViewing = 0;
+    
     public PlayerData(String playerName) {
         this.playerName = playerName;
         this.joinTime = System.currentTimeMillis();
@@ -471,5 +481,66 @@ public class PlayerData {
     
     public Queue<Long> getAttackTimes() {
         return new LinkedList<>(attackTimes);
+    }
+    
+    // Network analysis methods
+    public void addPingSample(int ping) {
+        pingSamples.add(ping);
+        if (pingSamples.size() > 30) {
+            pingSamples.remove(0);
+        }
+    }
+    
+    public List<Integer> getPingSamples() {
+        return new ArrayList<>(pingSamples);
+    }
+    
+    public void incrementPingSpoofViolations() {
+        pingSpoofViolations = Math.min(pingSpoofViolations + 1, 10);
+    }
+    
+    public void decrementPingSpoofViolations() {
+        pingSpoofViolations = Math.max(pingSpoofViolations - 1, 0);
+    }
+    
+    public int getPingSpoofViolations() {
+        return pingSpoofViolations;
+    }
+    
+    public void incrementSuspiciousPingDrops() {
+        suspiciousPingDrops = Math.min(suspiciousPingDrops + 1, 10);
+    }
+    
+    public int getSuspiciousPingDrops() {
+        return suspiciousPingDrops;
+    }
+    
+    // FreeCam detection methods
+    public void incrementFreeCamViolations() {
+        freeCamViolations = Math.min(freeCamViolations + 1, 10);
+    }
+    
+    public void decrementFreeCamViolations() {
+        freeCamViolations = Math.max(freeCamViolations - 1, 0);
+    }
+    
+    public int getFreeCamViolations() {
+        return freeCamViolations;
+    }
+    
+    public void incrementSuspiciousViewing() {
+        suspiciousViewing = Math.min(suspiciousViewing + 1, 15);
+    }
+    
+    public int getSuspiciousViewing() {
+        return suspiciousViewing;
+    }
+    
+    public void incrementTerrainViewing() {
+        terrainViewing = Math.min(terrainViewing + 1, 20);
+    }
+    
+    public int getTerrainViewing() {
+        return terrainViewing;
     }
 }
