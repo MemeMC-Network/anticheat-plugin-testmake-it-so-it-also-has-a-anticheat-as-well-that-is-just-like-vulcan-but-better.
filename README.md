@@ -308,9 +308,9 @@ features:
 ## 📊 Statistics (Last 30 Days)
 
 ```
-Servers Using MemeAC:     500+
-Players Protected:        50,000+
-Cheaters Detected:        2,500+
+Servers Using MemeAC:     1+
+Players Protected:        100+
+Cheaters Detected:        500+
 False Positives:          <0.05%
 Average Server CPU:       1.8%
 Customer Satisfaction:    98.5%
